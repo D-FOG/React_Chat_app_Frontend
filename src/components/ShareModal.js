@@ -18,9 +18,9 @@ function ShareModal({ modalOpened, setModalOpened }) {
       opened={modalOpened}
       onClose={() => setModalOpened(false)}
     >
-    <Share/>
+    <Share closeModal={() => setModalOpened(false)}/>
     </Modal>
   );
 }
 
-export default ShareModal;
+export default ShareModal; 

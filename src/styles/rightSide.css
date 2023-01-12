@@ -7,8 +7,15 @@
   min-width: 250px;
 }
 
+.rightSide .noButton__search {
+  background-color: var(--p-color8);
+  border: 1px solid var(--p-color5);
+  height: 40px;
+  margin-bottom: 5px;
+}
+
 .action-cont {
-  padding: .5rem;
+  margin-top: 20px;
 }
 
 .navIcons {
@@ -27,6 +34,21 @@
   width: 100%;
   align-self: center;
   margin: 0 auto;
+}
+
+.rightSide .searchPeople {
+  position: relative;
+}
+
+.rightSide .search__results {
+  position: absolute;
+  background: white;
+  right: 0;
+  left: 0;
+  border: 1px solid var(--p-color7);
+  box-shadow: 0 0 8px gainsboro;
+  border-radius: 10px;
+  z-index: 1;
 }
 
 @media (min-width: 850px) {

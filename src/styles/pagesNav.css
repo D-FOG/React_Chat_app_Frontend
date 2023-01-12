@@ -39,8 +39,13 @@
   stroke-width: 1;
 }
 
+.pageNav__follow {
+  display: none;
+}
+
 .pagesNav__action {
   color: var(--p-color2);
+  cursor: pointer;
 }
 
 .addPost {
@@ -51,10 +56,27 @@
   color: white;
 }
 
+.search_modal {
+  align-items: flex-start;
+  padding-top: 30px;
+}
+
+.search_modal .modal__head {
+  display: none;
+}
+
+.search_modal .noButton__search {
+  height: 40px;
+}
+
 @media(min-width: 500px) {
   .pageNavAlt {
     display: none;
     visibility: hidden;
+  }
+
+  .pageNav__follow {
+    display: block;
   }
 
   .pagesNavVertical { 

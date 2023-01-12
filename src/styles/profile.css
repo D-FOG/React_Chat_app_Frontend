@@ -3,6 +3,15 @@
   gap: 0;
   width: 100%;
   justify-content: center;
+  min-height: 100vh;
+}
+
+.profile .profileCard__cont {
+  padding: 0.5rem;
+}
+
+.profile .share__cont {
+  padding: 0 0.5rem ;
 }
 
 .profile__left {
@@ -19,6 +28,7 @@
 }
 
 .profile__left + div {
+  width: 100%;
   max-width: 600px;
 }
 

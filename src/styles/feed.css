@@ -1,6 +1,6 @@
 .feed {
   padding-bottom: 50px;
-  max-width: 600px;
+  width: 100%;
 }
 
 @media (min-width: 500px) {

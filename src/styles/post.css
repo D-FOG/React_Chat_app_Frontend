@@ -8,7 +8,18 @@
   border-radius: 1rem;
 }
 
+.post__head {
+  display: flex;
+  justify-content: space-between;
+}
+
 .post__head > img {
+  width: 17px;
+  height: 17px;
+  cursor: pointer;
+}
+
+.post__head div > img {
   width: 50px;
   height: 50px;
   border-radius: 100%;
@@ -26,7 +37,7 @@
   color: var(--p-color4);
 }
 
-.post__head {
+.post__head > div {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -34,7 +45,7 @@
 
 .post > img {
   width: 100%;
-  max-height: 400px;
+  max-height: 500px;
   object-fit: cover;
   border-radius: 0.5rem;
 }
@@ -148,6 +159,50 @@
   color: var(--p-color1);
 }
 
+.post__modal .modal {
+  padding: 0;
+}
+
+.post__modal .modal__head {
+  display: none;
+}
+
+.post__deleteModal { 
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid gainsboro;
+  box-shadow: 0 2px 4px gainsboro;
+}
+
+.post__deleteModal span {
+  padding: 30px 20px; 
+  display: block;
+  font-size: 18px;
+}
+
+.post__deleteModal div {
+  display: flex;
+}
+
+.post__deleteModal div button{
+  width: 50%;
+  height: 40px;
+  border: none;
+  background-color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--p-color2);
+  cursor: pointer;
+}
+
+.post__deleteModal div button:hover{
+  color: black;
+}
+
+.post__deleteModal div button:nth-child(2):hover{
+  color: rgb(245, 128, 128);
+}
 /* @media (min-width: 500px) {
   .post {
     border-radius: 10px;

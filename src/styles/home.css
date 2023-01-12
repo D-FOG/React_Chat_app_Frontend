@@ -6,6 +6,11 @@
   width: 100%;
 }
 
+.home__center {
+  width: 100%;
+  max-width: 600px;
+}
+
 @media(min-width: 1024px) {
   .home {
     max-width: unset;

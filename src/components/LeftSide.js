@@ -3,8 +3,12 @@ import FollowersCard from "./FollowCard";
 import "../styles/leftSide.css";
 import { Link } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
+import { useSelector } from "react-redux";
 
 const LeftSide = () => {
+
+  const user = useSelector((state) => state.auth.user)
+ 
   return (
     <div className="leftSide">
       <div className="leftSide__wrapper">
@@ -13,16 +17,16 @@ const LeftSide = () => {
         </Link>
         {/* <MiniprofileCard/> */}
         <ProfileCard
-          name="Tammibriggs"
-          coverImage="assets/profile.jpg"
-          profileImage="assets/profile.jpg"
-          bio="Software developer. I gat the skill and enthusiasm 💪🏼 | Technical writer with over 30 published articles | Currently working on creating my start-up."
-          employmentStatus="Self-employed"
-          country="Nigeria"
-          relationship="Single"
-          followers={30}
-          following={20}
-          showProfileBtn={true}
+          name={user.username}
+          coverImage={user.coverPicture}
+          profileImage={user.profilePicture}
+          bio={user.bio}
+          employmentStatus={user.employmentStatus}
+          country={user.country}
+          relationship={user.relationship}
+          followers={user.followers.legth}
+          following={user.followings.legth}
+          showViewBtn={true}
         />
         <FollowersCard />
       </div>

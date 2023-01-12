@@ -1,64 +1,76 @@
 import "../styles/followCard.css";
-import { Followers } from "../Data/FollowersData";
-import { useState } from "react";
+import {useState } from "react";
 import { formatNumber } from "../modules/formatNumber";
+import { 
+  useGetFollowersQuery, 
+  useGetFollowingQuery,
+  useFollowMutation,
+  useUnfollowMutation
+ } from "../redux/services/user";
 
 const FollowCard = ({ pathname }) => {
   const [selected, setSelected] = useState(pathname || "followers");
+  const { data } = useGetFollowersQuery()
+  const { data:followData } = useGetFollowingQuery()
+  const [follow] = useFollowMutation()
+  const [unfollow] = useUnfollowMutation()
 
-  return (
+  return ( 
     <div className="followCard__cont">
       <div className="followCard">
         <div className="followCard__head">
           <span
             style={{
-              // borderColor: `${
-              //   selected === "followers" ? "rgb(228, 228, 228)" : "transparent"
-              // }`,
               background: `${selected === "followers" ? "white" : "none"}`,
             }}
             onClick={() => setSelected("followers")}
           >
-            Follwers
-            <span className="tag">{formatNumber(6980)}</span>
+            Followers
+            <span className="tag">{formatNumber(data?.data.length || 0)}</span>
           </span>
           <span
             style={{
-              // borderColor: `${
-              //   selected === "following" ? "rgb(228, 228, 228)" : "transparent"
-              // }`,
               background: `${selected === "following" ? "white" : "none"}`,
             }}
             onClick={() => setSelected("following")}
           >
             Following
-            <span className="tag">{formatNumber(1)}</span>
+            <span className="tag">{formatNumber(followData?.data.length || 0)}</span>
           </span>
         </div>
-        {selected === "followers" ? (
+        {selected === "following" ? (
           <div className="followCard__list scrollbar-hidden">
-            {Followers.map((follower, id) => {
+            {followData?.status === 'ok' && followData.data.map((follow, i) => {
               return (
-                <div className="followCard__follow" key={id}>
+                <div className="followCard__follow" key={i}>
                   <div>
-                    <img src={follower.img} alt="" className="followImage" />
-                    <span>{follower.name}</span>
+                    <img src={follow.profilePicture?.url ? follow.profilePicture?.url : '/assets/noPic.webp'} alt="" className="followImage" />
+                    <span>{follow.username}</span>
                   </div>
-                  <span className="followCard__action">Follow</span>
+                  <span className="followCard__action" 
+                  onClick={async () => {
+                    await unfollow({userId: follow.id})
+                  }}>Unfollow</span>
                 </div>
               );
             })}
-          </div>
+          </div> 
         ) : (
           <div className="followCard__list scrollbar-hidden">
-            {Followers.map((follower, id) => {
+            {data?.status === 'ok' && data.data.map((follower, i) => {
               return (
-                <div className="followCard__follow" key={id}>
+                <div className="followCard__follow" key={i}>
                   <div>
-                    <img src={follower.img} alt="" className="followImage" />
-                    <span>{follower.name}</span>
+                    <img src={follower.profilePicture?.url ? follower.profilePicture?.url : '/assets/noPic.webp'} alt="" className="followImage" />
+                    <span>{follower.username}</span>
                   </div>
-                  <span className="followCard__action">Unfollows</span>
+                  <span className="followCard__action" 
+                  onClick={async () => {
+                    if(follower.following) await unfollow({userId: follower.id})
+                    else await follow({userId: follower.id});
+                  }}>
+                    {follower.following ? 'Unfollow' : 'Follow'}
+                  </span>
                 </div>
               );
             })}

@@ -8,23 +8,33 @@ import {
   Email,
   Add,
   PeopleAlt,
-  Person
+  Person,
+  Search
 } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import Modal from './Modal';
+import { useSelector } from 'react-redux';
+import SearchPeople from './SearchPeople';
 
 function PagesNav({rotate=false, setModalOpened}) {
 
+  const userData = useSelector((state) => state.auth)
+  const [searchModalOpen, setSearchModalOpen] = useState(false)
   const [locationChanged, setLocationChanged] = useState(false)
   const [pathname, setPathname] = useState(null)
-
+  const [searchParams] = useSearchParams()
+ 
   // get the URL pathname and set in the state
   useEffect(() => {
     if(locationChanged || true) {
       const pathname = window.location.pathname
-      setPathname(pathname.slice(1, pathname.length))
+      if(searchParams.get('id') && searchParams.get('id') === userData.user._id){
+        setPathname(pathname.slice(1, pathname.length).split('/')[0])
+      }
+      else setPathname(pathname.slice(1, pathname.length))
     }
-  }, [locationChanged])
+  }, [locationChanged, searchParams, userData.user._id])
 
   // remove bottom page nav when a the windows height becomes smaller particularly when a virtual keyboard is displayed
   useEffect(() => {
@@ -68,7 +78,7 @@ function PagesNav({rotate=false, setModalOpened}) {
         </Link>
         <Link 
           to='/followers' 
-          className='pagesNav__action'  
+          className='pagesNav__action pageNav__follow'  
           onClick={() => setLocationChanged(!locationChanged)}
         >
           {pathname === 'followers'
@@ -76,8 +86,14 @@ function PagesNav({rotate=false, setModalOpened}) {
             : <PeopleAltOutlined />
           }
         </Link>
+        <div 
+          className='pagesNav__action'  
+          onClick={() => setSearchModalOpen(!searchModalOpen)}
+        >
+         <Search />
+        </div>
         <Link 
-          to='/profile' 
+          to={`/profile/?id=${userData.user._id}`}
           className='pagesNav__action' 
           onClick={() => setLocationChanged(!locationChanged)}
         >
@@ -86,12 +102,22 @@ function PagesNav({rotate=false, setModalOpened}) {
             : <PermIdentityOutlined />
           }
         </Link>
-        {rotate &&
+        {rotate && (pathname?.length === 0 || pathname === 'profile') &&
           <Link className='pagesNav__action addPost' onClick={() => setModalOpened(true)}>
             <Add />
           </Link>
         }
       </div>
+      <Modal
+        open={searchModalOpen}
+        onClose ={() => {setSearchModalOpen(false)}}
+        custom_modal='search_modal'
+      >
+        <SearchPeople 
+          userData={userData} 
+          setSearchModalOpen={setSearchModalOpen}
+        />
+      </Modal>
     </div>
   )
 }
