@@ -17,7 +17,8 @@ code {
 }
 
 :root{
-  --p-color1: hsl(213, 12%, 15%);
+  --p-color1: rgb(19,113,235);
+  --p-color-gray1: hsl(213, 12%, 15%);
   --p-color2: hsl(210, 10%, 23%);
   --p-color3: hsl(210, 9%, 31%);
   --p-color4: hsl(210, 7%, 56%);

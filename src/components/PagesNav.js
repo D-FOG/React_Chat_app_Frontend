@@ -36,22 +36,22 @@ function PagesNav({rotate=false, setModalOpened}) {
     }
   }, [locationChanged, searchParams, userData.user._id])
 
-  // remove bottom page nav when a the windows height becomes smaller particularly when a virtual keyboard is displayed
-  useEffect(() => {
-    const pageNav = document.querySelector(".pageNavAlt")
-    const initialWindowHeight = window.innerHeight
-    if(pathname !== 'login' && pathname !== 'signup' && pathname !== 'messaging' && pathname !== null) {
-      if('visualViewport' in window) {
-        window.visualViewport.addEventListener('resize', function() {
-          if(window.innerHeight + 50 < initialWindowHeight) {
-            pageNav.style.display = 'none'
-          } else if (pathname !== 'login' && pathname !== 'signup' ) {
-            pageNav.style.display = 'block'
-          }
-        })
-      }
-    }
-  }, [pathname])
+  // // remove bottom page nav when a the windows height becomes smaller particularly when a virtual keyboard is displayed
+  // useEffect(() => {
+  //   const pageNav = document.querySelector(".pageNavAlt")
+  //   const initialWindowHeight = window.innerHeight
+  //   if(pathname !== 'login' && pathname !== 'signup' && pathname !== 'messaging' && pathname !== null) {
+  //     if('visualViewport' in window) {
+  //       window.visualViewport.addEventListener('resize', function() {
+  //         if(window.innerHeight + 50 < initialWindowHeight) {
+  //           pageNav.style.display = 'none'
+  //         } else if (pathname !== 'login' && pathname !== 'signup' ) {
+  //           pageNav.style.display = 'block'
+  //         }
+  //       })
+  //     }
+  //   }
+  // }, [pathname])
 
   return (
     <div className={`pagesNav ${rotate ? 'pagesNavVertical' : 'pageNavAlt'}`} id='pageNav'>

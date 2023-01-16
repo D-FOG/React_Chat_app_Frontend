@@ -59,7 +59,9 @@ export default function SignUp() {
         <div>
           <span style={{fontSize: '12px'}}>Already have an account. <Link to='/login'>Login</Link></span>
         </div>
-        <button className="button infoButton" type="submit">Signup</button>
+        <button className="button infoButton" disabled={result.isLoading} type="submit">
+          Signup
+        </button>
       </form>
     </div>
   );

@@ -64,7 +64,7 @@
   height: fit-content;
   cursor: pointer;
   text-transform: none;
-  color: var(--p-color1);
+  color: var(--p-color-gray);
 }
 
 .profileCard__profileImage h2 {

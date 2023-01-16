@@ -15,7 +15,7 @@
   font-weight: 900;
   line-height: 40px;
   text-align: center;
-  color: var(--p-color1);
+  color: var(--p-color-gray1);
 }
 
 .logo {
@@ -91,6 +91,12 @@
   color: var(--p-color1);
   background: transparent;
   border: 2px solid var(--p-color1);
+}
+
+.button:disabled {
+  color: black;
+  border-color: var(--p-color5);
+  background-color: var(--p-color5);
 }
 
 @media (min-width: 1024px) {
