@@ -24,13 +24,15 @@ const messagingApi = api.injectEndpoints({
       query: ({coversationId}) => `messages/${coversationId}/message`
     }),
     addMessage: builder.mutation({
-      query: (({conversationId, sender, text}) => ({
+      query: (({conversationId, sender, text, encryptedMessage, encryptionKey}) => ({
         url: 'messages',
         method: 'POST',
         body: {
           conversationId,
           sender,
           text,
+          encryptedMessage,
+          encryptionKey
         }
       })),
     })

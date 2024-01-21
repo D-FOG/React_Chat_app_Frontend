@@ -3,6 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { KeyboardArrowLeft } from '@mui/icons-material';
 import { useEffect, useRef, useState } from 'react';
 import { useAddMessageMutation, useLazyGetMessagesQuery } from '../redux/services/messaging';
+import CryptoJS from 'crypto-js';
 
 export default function Chat({currentUser, conversationMember, setConversationMember, socket}) {
 
@@ -33,18 +34,27 @@ export default function Chat({currentUser, conversationMember, setConversationMe
   const handleSubmit = async (e) => {
     e.preventDefault()
     if(inputRef.current.innerText) { 
+      const aesKey = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
 
+      // Encrypt the message with the randomly generated AES key.
+      const encryptedMessage = CryptoJS.AES.encrypt(inputRef.current.innerText, aesKey).toString();
+
+      console.log(`encrypted text: ${encryptedMessage}`)
       socket.current.emit('sendMessage', {
         senderId: currentUser._id,
         receiverId: conversationMember._id,
-        text: inputRef.current.innerText
+        text: encryptedMessage,
+        encryptionKey: aesKey,
       })
 
       const message = await addMessage({
         conversationId: conversationMember.conversationId,
         sender: currentUser._id,
-        text: inputRef.current.innerText
+        text: inputRef.current.innerText,
+        encryptedMessage,
+        encryptionKey: aesKey
       })
+
       if(message?.data?.data) {
         setMessages([...messages, message.data.data])
       }
